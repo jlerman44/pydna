@@ -5,7 +5,8 @@
 #    All rights reserved.
 #    BSD license (see second license in LICENSE.txt).
 
-import networkx as _nx
+#import networkx as _nx
+import graph_tool.all as _nx
 
 __author__ = """\n""".join(['Sérgio Nery Simões <sergionery@gmail.com>',
                              'Aric Hagberg <aric.hagberg@gmail.com>'])

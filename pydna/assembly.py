@@ -11,7 +11,8 @@ import logging as _logging
 _module_logger = _logging.getLogger("pydna."+__name__)
 
 import itertools as _itertools
-import networkx as _nx
+#import networkx as _nx
+import graph_tool.all as _nx
 import operator as _operator
 import random as _random
 import os as _os
@@ -194,10 +195,13 @@ class Assembly(object, metaclass = _Memoize):
 
         # Create graph
 
-        self.G=_nx.MultiDiGraph(multiedges=True, name ="original graph" , selfloops=False)
-        self.G.add_node( '5' )
-        self.G.add_node( '3' )
-
+        #self.G=_nx.MultiDiGraph(multiedges=True, name ="original graph" , selfloops=False)
+        self.G=_nx.Graph(directed=True)
+        self.G.add_vertex( '5' )
+        self.G.add_vertex( '3' )
+        
+        # http://stackoverflow.com/questions/24221792/graph-tool-draw-graph-with-user-defined-vertex-text
+        # https://graph-tool.skewed.de/static/doc/dev/graph_tool.html#graph_tool.Graph
         for i, dsrec in enumerate(self.analyzed_dsrecs):
 
             overlaps = sorted( list({f.qualifiers['chksum'][0]:f for f in dsrec.features

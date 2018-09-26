@@ -187,7 +187,7 @@ class Assembly(object, metaclass = _Memoize):
                                                                    type = "overlap",
                                                                    qualifiers = qual))
         for ds in dsset:
-            ds.features = sorted([f for f in ds.features], key = _operator.attrgetter("location.start"))
+            ds.features = sorted([f for f in ds.features], key = _operator.attrgetter("location.start", "location.end"))
 
         self.analyzed_dsrecs = list(dsset)
 
@@ -202,7 +202,7 @@ class Assembly(object, metaclass = _Memoize):
 
             overlaps = sorted( list({f.qualifiers['chksum'][0]:f for f in dsrec.features
                                 if f.type=='overlap'}.values()),
-                               key = _operator.attrgetter('location.start'))
+                               key = _operator.attrgetter('location.start', 'location.end'))
 
             if overlaps:
                 overlaps = ([_SeqFeature(_FeatureLocation(0, 0),
